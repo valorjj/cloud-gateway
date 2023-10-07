@@ -1,0 +1,49 @@
+---
+## Deployment
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloud-gateway-app
+spec:
+  selector:
+    matchLabels:
+      app: cloud-gateway-app
+  template:
+    metadata:
+      labels:
+        app: cloud-gateway-app
+    spec:
+      containers:
+      - name: cloud-gateway-app
+        image: valorjj/cloud-gateway:0.0.1
+        imagePullPolicy: Always
+        # resources:
+        #   limits:
+        #     memory: "128Mi"
+        #     cpu: "500m" 
+        ports:
+        - containerPort: 9090
+        env:
+          - name: CONFIG_SERVER_URL
+            valueFrom:
+              configMapKeyRef:
+                key: config_url
+                name: config-cm
+
+---
+# Service
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: cloud-gateway-svc
+spec:
+  # 1. cloud gateway 가 로드 밸런서 역할
+  # 2. (쿠버네티스 내부 ip 이용) api 요청을 해당 서비스에 맵핑
+  type: LoadBalancer
+  selector:
+    app: cloud-gateway-app
+  ports:
+  - port: 80
+    targetPort: 9090

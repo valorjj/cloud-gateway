@@ -1,0 +1,56 @@
+server:
+  port: 9090
+
+spring:
+  # 해당 어플리케이션을 식별하는 명칭입니다.
+  application:
+    name: APT-GATEWAY
+  config:
+    # config-server 에 등록한 github repository 정보를 불러옵니다.
+    # eureka, okta 에 관한 반복적으로 각 마이크로 서비스에 등록해야하는 정보가 담겨있습니다.
+    import: configserver:http://localhost:9296
+  cloud:
+    gateway:
+      routes:
+        # order-service 에서 spring.application.name 에 입력한 값 입니다.
+        - id: ORDER-SERVICE
+          # 다른 마이크로 서비스에서 해당 서비스를 호출하는 경로를 지정합니다.
+          uri: lb://ORDER-SERVICE
+          # /order/ 로 시작하는 모든 엔드포인트를 지정합니다.
+          predicates:
+            - Path=/order/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: ORDER-SERVICE
+                fallbackuri: forward:/orderServiceFallback
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 1
+                redis-rate-limiter.burstCapacity: 1
+        - id: PRODUCT-SERVICE
+          uri: lb://PRODUCT-SERVICE
+          predicates:
+            - Path=/product/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: PRODUCT-SERVICE
+                fallbackuri: forward:/productServiceFallback
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 1
+                redis-rate-limiter.burstCapacity: 1
+        - id: PAYMENT-SERVICE
+          uri: lb://PAYMENT-SERVICE
+          predicates:
+            - Path=/payment/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: PAYMENT-SERVICE
+                fallbackuri: forward:/paymentServiceFallback
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 1
+                redis-rate-limiter.burstCapacity: 1
