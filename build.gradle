@@ -75,35 +75,14 @@ jar {
 	enabled = false
 }
 
-//
-//jib {
-//	from {
-//		image = "eclipse-temurin:17-alpine"
-//		platforms {
-//			platform {
-//				architecture = "arm64"
-//				os = "linux"
-//			}
-//		}
-//	}
-//	to {
-//		image = "valorjj/cloud-gateway"
-//		tags = ["0.0.1", "${project.version.toString().toLowerCase()}"]
-//		auth {
-//			username = "valorjj"
-//			password = "dckr_pat_1COmBXt4gcOg0a2fL7OjhgOh9Pk"
-//		}
-//		credHelper = 'osxkeychain'
-//	}
-//	container {
-//		mainClass = "com.example.cloudgateway"
-//		entrypoint = ["java", "-jar", "/cloudgateway.jar"]
-//		ports = ["9090"]
-//		environment = [
-//				EUREKA_SERVER_ADDRESS:"http://host.docker.internal:8761/eureka",
-//				CONFIG_SERVER_URL:"host.docker.internal"
-//		]
-//		jvmFlags = ["-Xms512m", "-Xmx1024m"]
-//	}
-//}
+
+jib {
+	from {
+		image = "eclipse-temurin:17-alpine"
+	}
+	to {
+		image = System.getProperty("REPO_URL") + "/cloud-gateway"
+		tags = ["0.0.1", "latest"]
+	}
+}
 

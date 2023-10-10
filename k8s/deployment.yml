@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: cloud-gateway-app
-        image: valorjj/cloud-gateway:0.0.1
+        image: IMAGE_URL/cloud-gateway
         imagePullPolicy: Always
         # resources:
         #   limits:
@@ -39,8 +39,6 @@ kind: Service
 metadata:
   name: cloud-gateway-svc
 spec:
-  # 1. cloud gateway 가 로드 밸런서 역할
-  # 2. (쿠버네티스 내부 ip 이용) api 요청을 해당 서비스에 맵핑
   type: LoadBalancer
   selector:
     app: cloud-gateway-app
