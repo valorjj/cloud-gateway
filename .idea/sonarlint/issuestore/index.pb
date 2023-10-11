@@ -12,3 +12,6 @@ Dockerfile,6/6/6651ddff6eb82c840ced7c1dddee15c6e1913dd4
 build.gradle,f/0/f07866736216be0ee2aba49e392191aeae700a35
 B
 k8s/deployment.yml,3/4/34543600f8e48b7ceb358c53e2f43b8ed4abbbb7
+:
+
+.gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
