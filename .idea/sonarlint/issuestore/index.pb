@@ -15,3 +15,11 @@ B
 :
 
 .gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
+y
+Isrc/main/java/com/example/cloudgateway/controller/FallbackController.java,0/e/0ec3a5b9ce8f7b007b5e70daa13499327cb3776f
+
+Osrc/main/java/com/example/cloudgateway/controller/AuthenticationController.java,0/f/0f981b101c5ea67c4c2ece48b2e686d2602e5a7c
+o
+?src/main/java/com/example/cloudgateway/security/OktaConfig.java,1/f/1fbdaa5418cd7b334171330cb24b8f50cf85aaf1
+;
+Jenkinsfile,0/c/0c2c5c506cef0ed2d3ad2b7e45e97980b66f5520
