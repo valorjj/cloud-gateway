@@ -23,3 +23,5 @@ o
 ?src/main/java/com/example/cloudgateway/security/OktaConfig.java,1/f/1fbdaa5418cd7b334171330cb24b8f50cf85aaf1
 ;
 Jenkinsfile,0/c/0c2c5c506cef0ed2d3ad2b7e45e97980b66f5520
+H
+bin/main/application.yml,a/d/ad066c5789d1a52e08ee89ea965da4d0f40897dc
