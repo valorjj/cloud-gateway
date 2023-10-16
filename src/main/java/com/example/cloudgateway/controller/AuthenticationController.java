@@ -26,6 +26,7 @@ public class AuthenticationController {
         @RegisteredOAuth2AuthorizedClient("okta") OAuth2AuthorizedClient client,
         Model model
     ) {
+
         AuthenticateResponse authenticateResponse = AuthenticateResponse.builder()
             .userId(oidcUser.getEmail())
             .accessToken(client.getAccessToken().getTokenValue())
