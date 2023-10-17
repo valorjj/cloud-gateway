@@ -21,6 +21,7 @@ public class OktaConfig {
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         http.authorizeExchange(auth -> auth
             .pathMatchers("/authenticate/**").permitAll()
+            .pathMatchers("/testing").permitAll()
             .anyExchange().authenticated());
         http.oauth2Login(withDefaults());
         http.oauth2ResourceServer(auth -> auth.jwt(withDefaults()));
