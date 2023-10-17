@@ -35,10 +35,12 @@ public class OktaConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfig = new CorsConfiguration();
-        corsConfig.setAllowedOrigins(List.of("*"));
+        corsConfig.setAllowedOrigins(List.of("http://localhost:3000"));
         corsConfig.setMaxAge(3600L);
-        corsConfig.addAllowedMethod("*");
-        corsConfig.addAllowedHeader("*");
+        corsConfig.setAllowedMethods(List.of("POST", "GET", "PUT", "DELETE"));
+        corsConfig.setAllowedHeaders(List.of("Authorization", "Content-Type", "Access-Control-Request-Headers", "Access-Control-Request-Method"));
+//        corsConfig.addAllowedMethod("*");
+//        corsConfig.addAllowedHeader("*");
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfig);
