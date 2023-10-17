@@ -24,7 +24,7 @@ import java.util.Objects;
 @Slf4j
 public class AuthenticationController {
 
-    private final String FRONT_SERVER_URL = "http://localhost:3000"
+    private final String FRONT_SERVER_URL = "http://localhost:3000";
 
     @GetMapping("/login")
     public ResponseEntity<?> login(
@@ -32,17 +32,18 @@ public class AuthenticationController {
         @RegisteredOAuth2AuthorizedClient("okta") OAuth2AuthorizedClient client,
         Model model
     ) throws URISyntaxException {
-        AuthenticateResponse authenticateResponse = AuthenticateResponse.builder()
-            .userId(oidcUser.getEmail())
-            .accessToken(client.getAccessToken().getTokenValue())
-            .refreshToken(Objects.requireNonNull(client.getRefreshToken()).getTokenValue())
-            .expiresAt(Objects.requireNonNull(client.getAccessToken().getExpiresAt()).getEpochSecond())
-            .authorityList(oidcUser.getAuthorities()
-                .stream()
-                .map(GrantedAuthority::getAuthority)
-                .toList()
-            )
-            .build();
+
+//        AuthenticateResponse authenticateResponse = AuthenticateResponse.builder()
+//            .userId(oidcUser.getEmail())
+//            .accessToken(client.getAccessToken().getTokenValue())
+//            .refreshToken(Objects.requireNonNull(client.getRefreshToken()).getTokenValue())
+//            .expiresAt(Objects.requireNonNull(client.getAccessToken().getExpiresAt()).getEpochSecond())
+//            .authorityList(oidcUser.getAuthorities()
+//                .stream()
+//                .map(GrantedAuthority::getAuthority)
+//                .toList()
+//            )
+//            .build();
 
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(URI.create(FRONT_SERVER_URL));
