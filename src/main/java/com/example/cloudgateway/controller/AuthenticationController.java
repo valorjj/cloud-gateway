@@ -33,13 +33,20 @@ public class AuthenticationController {
             .refreshToken(Objects.requireNonNull(client.getRefreshToken()).getTokenValue())
             .expiresAt(Objects.requireNonNull(client.getAccessToken().getExpiresAt()).getEpochSecond())
             .authorityList(oidcUser.getAuthorities()
-                    .stream()
-                    .map(GrantedAuthority::getAuthority)
-                    .toList()
+                .stream()
+                .map(GrantedAuthority::getAuthority)
+                .toList()
             )
             .build();
 
         return ResponseEntity.ok(authenticateResponse);
+    }
+
+
+    // status check
+    @GetMapping("/testing")
+    public ResponseEntity<String> test() {
+        return ResponseEntity.ok("test-ok");
     }
 
 }
