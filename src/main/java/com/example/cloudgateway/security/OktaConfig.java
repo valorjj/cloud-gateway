@@ -35,6 +35,7 @@ public class OktaConfig {
         corsConfig.setAllowedMethods(List.of("POST", "GET", "PUT", "DELETE"));
         corsConfig.setAllowedHeaders(List.of("*"));
         corsConfig.setExposedHeaders(List.of("Access-Control-Allow-Origin"));
+        corsConfig.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfig);
