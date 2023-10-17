@@ -20,14 +20,6 @@ import java.util.Objects;
 @Slf4j
 public class AuthenticationController {
 
-    /**
-     *
-     *
-     * @param oidcUser
-     * @param client
-     * @param model
-     * @return
-     */
     @GetMapping("/login")
     public ResponseEntity<AuthenticateResponse> login(
         @AuthenticationPrincipal OidcUser oidcUser,
