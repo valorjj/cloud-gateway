@@ -50,6 +50,8 @@ public class OktaConfig {
         source.registerCorsConfiguration("/**", corsConfig);
         source.registerCorsConfiguration("/authenticate/**", corsConfig);
         source.registerCorsConfiguration("/oauth2/**", corsConfig);
+
+
         return source;
     }
 
