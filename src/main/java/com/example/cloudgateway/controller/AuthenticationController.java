@@ -42,11 +42,4 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticateResponse);
     }
 
-
-    // status check
-    @GetMapping("/testing")
-    public ResponseEntity<String> test() {
-        return ResponseEntity.ok("test-ok");
-    }
-
 }

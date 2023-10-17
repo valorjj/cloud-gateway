@@ -59,7 +59,6 @@ dependencies {
 		implementation("io.netty:netty-resolver-dns-native-macos:4.1.79.Final:osx-aarch_64")
 	}
 	
-	
 	testCompileOnly 'org.projectlombok:lombok:1.18.30'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
 }

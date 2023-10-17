@@ -19,28 +19,22 @@ public class OktaConfig {
 
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
-        http.authorizeExchange(auth -> auth.anyExchange().authenticated());
+        http.authorizeExchange(auth -> auth
+            .pathMatchers("/authenticate/**").permitAll()
+            .anyExchange().authenticated());
         http.oauth2Login(withDefaults());
-        http.oauth2ResourceServer(r -> r.jwt(withDefaults()));
-
+        http.oauth2ResourceServer(auth -> auth.jwt(withDefaults()));
         return http.build();
     }
 
-
-    /**
-     * CORS 설정
-     * 테스트 환경에서는 모든 접근 허용
-     * @return
-     */
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfig = new CorsConfiguration();
         corsConfig.setAllowedOrigins(List.of("http://localhost:3000"));
         corsConfig.setMaxAge(3600L);
         corsConfig.setAllowedMethods(List.of("POST", "GET", "PUT", "DELETE"));
-        corsConfig.setAllowedHeaders(List.of("Authorization", "Content-Type", "Access-Control-Request-Headers", "Access-Control-Request-Method"));
-//        corsConfig.addAllowedMethod("*");
-//        corsConfig.addAllowedHeader("*");
+        corsConfig.setAllowedHeaders(List.of("*"));
+        corsConfig.setExposedHeaders(List.of("Access-Control-Allow-Origin"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfig);
