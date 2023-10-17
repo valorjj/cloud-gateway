@@ -20,8 +20,7 @@ public class OktaConfig {
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         http.authorizeExchange(auth -> auth
-            .pathMatchers("/authenticate/**").permitAll()
-            .pathMatchers("/testing").permitAll()
+            .pathMatchers("/authenticate/login").permitAll()
             .anyExchange().authenticated());
         http.oauth2Login(withDefaults());
         http.oauth2ResourceServer(auth -> auth.jwt(withDefaults()));
@@ -32,10 +31,10 @@ public class OktaConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfig = new CorsConfiguration();
         corsConfig.setAllowedOrigins(List.of("http://localhost:3000"));
+        corsConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
+        corsConfig.setAllowedHeaders(List.of("Access-Control-Allow-Origin", "Authorization", "Content-Type"));
+        corsConfig.setExposedHeaders(List.of("Access-Control-Allow-Origin", "Content-Type"));
         corsConfig.setMaxAge(3600L);
-        corsConfig.setAllowedMethods(List.of("POST", "GET", "PUT", "DELETE"));
-        corsConfig.setAllowedHeaders(List.of("*"));
-        corsConfig.setExposedHeaders(List.of("Access-Control-Allow-Origin"));
         corsConfig.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

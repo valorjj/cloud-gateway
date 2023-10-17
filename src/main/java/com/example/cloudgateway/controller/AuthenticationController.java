@@ -20,13 +20,20 @@ import java.util.Objects;
 @Slf4j
 public class AuthenticationController {
 
+    /**
+     *
+     *
+     * @param oidcUser
+     * @param client
+     * @param model
+     * @return
+     */
     @GetMapping("/login")
     public ResponseEntity<AuthenticateResponse> login(
         @AuthenticationPrincipal OidcUser oidcUser,
         @RegisteredOAuth2AuthorizedClient("okta") OAuth2AuthorizedClient client,
         Model model
     ) {
-
         AuthenticateResponse authenticateResponse = AuthenticateResponse.builder()
             .userId(oidcUser.getEmail())
             .accessToken(client.getAccessToken().getTokenValue())

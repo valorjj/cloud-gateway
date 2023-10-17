@@ -15,6 +15,10 @@ import java.time.Duration;
 @Configuration
 public class CloudGatewayConfig {
 
+    /**
+     * 이게 언제
+     * @return
+     */
     @Bean
     public KeyResolver authUserKeyResolver() {
         return exchange -> ReactiveSecurityContextHolder.getContext()
