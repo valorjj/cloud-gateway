@@ -20,4 +20,5 @@ public class CorsGlobalConfig implements WebFluxConfigurer {
             .allowedHeaders("Vary", "Content-Type", "Authorization", "Access-Control-Allow-Credentials", "Access-Control-Allow-Origin")
         ;
     }
+
 }

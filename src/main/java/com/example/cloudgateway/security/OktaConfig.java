@@ -40,7 +40,6 @@ public class OktaConfig {
         corsConfig.setExposedHeaders(List.of("Vary", "Content-Type", "Authorization", "Access-Control-Allow-Credentials", "Access-Control-Allow-Origin"));
         corsConfig.setMaxAge(3600L);
 
-
         source.registerCorsConfiguration("/**", corsConfig);
         source.registerCorsConfiguration("/authenticate/**", corsConfig);
         source.registerCorsConfiguration("/oauth2/**", corsConfig);
