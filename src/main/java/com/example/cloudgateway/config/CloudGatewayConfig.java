@@ -16,7 +16,8 @@ import java.time.Duration;
 public class CloudGatewayConfig {
 
     /**
-     * 이게 언제
+     * Request Rate Limiting
+     * 요청으로부터 Key 를 추출하고, 해당 Key 를 기준으로 요청 제한을 건다.
      * @return
      */
     @Bean
