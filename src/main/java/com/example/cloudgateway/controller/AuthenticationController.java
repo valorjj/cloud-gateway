@@ -43,9 +43,8 @@ public class AuthenticationController {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(URI.create("http://localhost:3000"));
-        // return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
 
-        return ResponseEntity.ok(authenticateResponse);
+        return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).headers(headers).body(authenticateResponse);
     }
 
 }
