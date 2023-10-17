@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Objects;
 
 @RestController
@@ -23,12 +24,14 @@ import java.util.Objects;
 @Slf4j
 public class AuthenticationController {
 
+    private final String FRONT_SERVER_URL = "http://localhost:3000"
+
     @GetMapping("/login")
-    public ResponseEntity<AuthenticateResponse> login(
+    public ResponseEntity<?> login(
         @AuthenticationPrincipal OidcUser oidcUser,
         @RegisteredOAuth2AuthorizedClient("okta") OAuth2AuthorizedClient client,
         Model model
-    ) {
+    ) throws URISyntaxException {
         AuthenticateResponse authenticateResponse = AuthenticateResponse.builder()
             .userId(oidcUser.getEmail())
             .accessToken(client.getAccessToken().getTokenValue())
@@ -42,9 +45,9 @@ public class AuthenticationController {
             .build();
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(URI.create("http://localhost:3000"));
+        headers.setLocation(URI.create(FRONT_SERVER_URL));
 
-        return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).headers(headers).body(authenticateResponse);
+        return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).headers(headers).build();
     }
 
 }
