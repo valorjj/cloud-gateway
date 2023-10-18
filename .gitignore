@@ -171,3 +171,6 @@ gradle-app.setting
 
 ### Groovy Library ###
 /lib/
+
+### .yml files ###
+./k8s/*
