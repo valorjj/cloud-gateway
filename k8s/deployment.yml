@@ -4,18 +4,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cloud-gateway-app
+  name: cloud-gateway-svc
 spec:
   selector:
     matchLabels:
-      app: cloud-gateway-app
+      app: cloud-gateway-svc
   template:
     metadata:
       labels:
-        app: cloud-gateway-app
+        app: cloud-gateway-svc
     spec:
       containers:
-      - name: cloud-gateway-app
+      - name: cloud-gateway-svc
         image: IMAGE_URL/cloud-gateway
         imagePullPolicy: Always
         resources:
@@ -44,7 +44,7 @@ metadata:
 spec:
   type: NodePort
   selector:
-    app: cloud-gateway-app
+    app: cloud-gateway-svc
   ports:
   - port: 80
     targetPort: 9090
@@ -76,6 +76,6 @@ metadata:
 spec:
   defaultBackend:
     service:
-      name: cloud-gateway-app
+      name: cloud-gateway-svc
       port:
         number: 80
