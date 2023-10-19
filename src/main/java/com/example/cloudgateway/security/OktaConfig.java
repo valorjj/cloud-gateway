@@ -20,29 +20,27 @@ public class OktaConfig {
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         http.authorizeExchange(auth -> auth
-            .pathMatchers("/authenticate/login").authenticated()
+            // .pathMatchers("/authenticate/login").authenticated()
             .anyExchange().authenticated());
         http.oauth2Login(withDefaults());
         http.oauth2ResourceServer(auth -> auth.jwt(withDefaults()));
         return http.build();
     }
 
-
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration corsConfig = new CorsConfiguration();
-
-        // corsConfig.setAllowCredentials(true);
-        corsConfig.setAllowedOrigins(List.of("*"));
-        corsConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
-        corsConfig.setAllowedHeaders(List.of("*"));
-        corsConfig.setExposedHeaders(List.of("*"));
-        corsConfig.setMaxAge(3600L);
-
-        source.registerCorsConfiguration("/**", corsConfig);
-
-        return source;
-    }
+//    @Bean
+//    public CorsConfigurationSource corsConfigurationSource() {
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        CorsConfiguration corsConfig = new CorsConfiguration();
+//
+//        corsConfig.setAllowedOrigins(List.of("*"));
+//        corsConfig.setAllowedMethods(List.of("*"));
+//        corsConfig.setAllowedHeaders(List.of("*"));
+//        corsConfig.setExposedHeaders(List.of("*"));
+//        corsConfig.setMaxAge(3600L);
+//
+//        source.registerCorsConfiguration("/**", corsConfig);
+//
+//        return source;
+//    }
 
 }
