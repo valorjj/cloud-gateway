@@ -25,7 +25,5 @@ o
 Jenkinsfile,0/c/0c2c5c506cef0ed2d3ad2b7e45e97980b66f5520
 H
 bin/main/application.yml,a/d/ad066c5789d1a52e08ee89ea965da4d0f40897dc
-s
-Csrc/main/java/com/example/cloudgateway/config/CorsGlobalConfig.java,a/7/a77c1f58664b84fcc3e70762f0c542eca6423ba8
 v
 Fsrc/main/java/com/example/cloudgateway/model/AuthenticateResponse.java,9/3/93ce39932507c9b92d35878e1aea813b3b1d8e50

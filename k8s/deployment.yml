@@ -51,6 +51,23 @@ spec:
     targetPort: 9090
     protocol: TCP
 
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-ingress
+spec:
+  rules:
+  - http:
+      - path: /*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: my-discounted-products
+            port:
+              number: 80
+---
+
 # ---
 # # Service - NodePort
 

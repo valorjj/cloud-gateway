@@ -25,10 +25,8 @@ import java.util.Objects;
 @Slf4j
 public class AuthenticationController {
 
-    private final String FRONT_SERVER_URL = "http://localhost:3000";
-
     @GetMapping("/login")
-    public ResponseEntity<?> login(
+    public ResponseEntity<AuthenticateResponse> login(
         @AuthenticationPrincipal OidcUser oidcUser,
         @RegisteredOAuth2AuthorizedClient("okta") OAuth2AuthorizedClient client,
         Model model,
@@ -46,20 +44,7 @@ public class AuthenticationController {
             )
             .build();
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(URI.create(FRONT_SERVER_URL));
-
-//        ResponseCookie cookie = ResponseCookie.from("access-token", authenticateResponse.accessToken())
-//            // 다른 엔드포인트 허용
-//            .path("/")
-//            // https 만 쿠키를 주고 받는다는 것이다.
-//            .secure(false)
-//            .sameSite("Lax")
-//            .httpOnly(false)
-//            .build();
-
-
-        return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).headers(headers).body(authenticateResponse);
+        return ResponseEntity.ok(authenticateResponse);
     }
 
 }
