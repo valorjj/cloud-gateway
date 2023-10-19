@@ -59,13 +59,15 @@ metadata:
 spec:
   rules:
   - http:
+      paths:
       - path: /*
         pathType: ImplementationSpecific
         backend:
           service:
-            name: my-discounted-products
+            name: cloud-gateway-svc
             port:
               number: 80
+ 
 ---
 
 # ---
