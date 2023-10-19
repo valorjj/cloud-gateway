@@ -25,8 +25,7 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticateResponse> login(
         @AuthenticationPrincipal OidcUser oidcUser,
         @RegisteredOAuth2AuthorizedClient("okta") OAuth2AuthorizedClient client,
-        Model model,
-        ServletServerHttpResponse response
+        Model model
     ) {
         AuthenticateResponse authenticateResponse = AuthenticateResponse.builder()
             .userId(oidcUser.getEmail())
@@ -39,6 +38,7 @@ public class AuthenticationController {
                 .toList()
             )
             .build();
+
 
         return ResponseEntity.ok(authenticateResponse);
     }
