@@ -33,11 +33,11 @@ public class OktaConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration corsConfig = new CorsConfiguration();
 
-        corsConfig.setAllowCredentials(true);
+        // corsConfig.setAllowCredentials(true);
         corsConfig.setAllowedOrigins(List.of("*"));
         corsConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
-        corsConfig.setAllowedHeaders(List.of("Vary", "Content-Type", "Authorization", "Access-Control-Allow-Credentials", "Access-Control-Allow-Origin"));
-        corsConfig.setExposedHeaders(List.of("Content-Type", "Authorization", "Access-Control-Allow-Credentials", "Access-Control-Allow-Origin"));
+        corsConfig.setAllowedHeaders(List.of("*"));
+        corsConfig.setExposedHeaders(List.of("*"));
         corsConfig.setMaxAge(3600L);
 
         source.registerCorsConfiguration("/**", corsConfig);
