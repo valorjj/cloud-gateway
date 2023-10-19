@@ -49,6 +49,5 @@ spec:
   ports:
   - port: 80
     targetPort: 9090
-    protocol: TCP
 
 ---
