@@ -1,7 +1,7 @@
 node {
     def repoURL = "${REGISTRY_URL}/${PROJECT_ID}/${ARTIFACT_REGISTRY}"
 
-    stage('Github Checkout') {
+    stage('Github Repository Checkout') {
         checkout([$class: 'GitSCM',
             branches: [[name: '*/main']],
             extensions: [],
@@ -10,16 +10,17 @@ node {
         ])
     }
 
-    stage('Build and Push Image to Google Cloud') {
+    stage('Build and Push Image to Google Cloud Artifact Registry') {
         withCredentials([file(credentialsId: 'gcp', variable: 'GC_KEY')]) {
             sh("gcloud auth activate-service-account --key-file=${GC_KEY}")
-            sh("gcloud auth configure-docker asia-northeast3-docker.pkg.dev")
+            sh("gcloud auth configure-docker ${REGISTRY_URL}")
             sh("./gradlew clean jib -DREPO_URL=${repoURL}")
         }
     }
 
-    stage('Deploy') {
+    stage('Deploy to GKE') {
         sh("sed -i 's|IMAGE_URL|${repoURL}|g' k8s/deployment.yml")
+
         step([$class: 'KubernetesEngineBuilder',
             projectId: env.PROJECT_ID,
             clusterName: env.CLUSTER,
