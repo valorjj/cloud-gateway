@@ -20,8 +20,8 @@ public class OktaConfig {
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         http.authorizeExchange(auth -> auth
-            .pathMatchers("/authenticate/api").permitAll()
-            .anyExchange().authenticated());
+            // .pathMatchers("/authenticate/api").permitAll()
+            .anyExchange().permitAll());
         http.oauth2Login(withDefaults());
         http.oauth2ResourceServer(auth -> auth.jwt(withDefaults()));
         // add CORS configuration
