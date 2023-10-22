@@ -31,8 +31,8 @@ spec:
           - name: CONFIG_SERVER_URL
             valueFrom:
               configMapKeyRef:
-                key: config_url
-                name: config-cm
+                key: "config_url"
+                name: "config-cm"
 
 ---
 ## Service - LoadBalancer

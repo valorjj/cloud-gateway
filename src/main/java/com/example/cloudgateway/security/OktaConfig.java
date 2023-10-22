@@ -20,27 +20,32 @@ public class OktaConfig {
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         http.authorizeExchange(auth -> auth
-            // .pathMatchers("/authenticate/login").authenticated()
+            .pathMatchers("/authenticate/api").permitAll()
             .anyExchange().authenticated());
         http.oauth2Login(withDefaults());
         http.oauth2ResourceServer(auth -> auth.jwt(withDefaults()));
+        // add CORS configuration
+        http.cors(cors -> cors.configurationSource(corsConfigurationSource()));
         return http.build();
     }
 
-//    @Bean
-//    public CorsConfigurationSource corsConfigurationSource() {
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        CorsConfiguration corsConfig = new CorsConfiguration();
-//
-//        corsConfig.setAllowedOrigins(List.of("*"));
-//        corsConfig.setAllowedMethods(List.of("*"));
-//        corsConfig.setAllowedHeaders(List.of("*"));
-//        corsConfig.setExposedHeaders(List.of("*"));
-//        corsConfig.setMaxAge(3600L);
-//
-//        source.registerCorsConfiguration("/**", corsConfig);
-//
-//        return source;
-//    }
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration corsConfig = new CorsConfiguration();
+
+        // Credentials 옵션을 사용하기 위해서는 와일드카드(*) 사용 불가능
+
+        corsConfig.setAllowedOrigins(List.of("*"));
+        // Preflight 요청 -> OPTIONS
+        corsConfig.setAllowedMethods(List.of("GET", "POST", "OPTIONS"));
+        corsConfig.addAllowedHeader("*");
+        // Credentials 옵션을 사용해야 인증과 관련된 정보(-> 쿠키)를 전송할 수 있다.
+        // corsConfig.setAllowCredentials(true);
+        corsConfig.setMaxAge(3600L);
+
+        source.registerCorsConfiguration("/**", corsConfig);
+        return source;
+    }
 
 }
