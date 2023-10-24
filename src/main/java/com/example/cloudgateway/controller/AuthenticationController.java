@@ -24,10 +24,6 @@ import java.util.Objects;
 @Slf4j
 public class AuthenticationController {
 
-    @GetMapping("/api")
-    public ResponseEntity<String> apiTest() {
-        return ResponseEntity.ok("1");
-    }
 
     @GetMapping("/login")
     public ResponseEntity<AuthenticateResponse> login(
