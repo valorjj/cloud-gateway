@@ -44,8 +44,6 @@ public class AuthenticationController {
             )
             .build();
 
-        log.info("authenticateResponse := {}", authenticateResponse);
-
         return ResponseEntity.ok(authenticateResponse);
     }
 

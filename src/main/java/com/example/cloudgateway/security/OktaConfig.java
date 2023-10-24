@@ -12,16 +12,10 @@ import static org.springframework.security.config.Customizer.*;
 @EnableWebFluxSecurity
 public class OktaConfig {
 
-    // 이슈1.
-    // api 로 인증 없이 접근할 수 있도록 설정 변경하기
-
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         http.authorizeExchange(auth -> auth
-            .pathMatchers("/authenticate/api").permitAll()
-            .pathMatchers("/api/v1").permitAll()
-            .pathMatchers("/**").permitAll()
-            .anyExchange().permitAll());
+            .anyExchange().authenticated());
         http.csrf(ServerHttpSecurity.CsrfSpec::disable);
         http.cors(ServerHttpSecurity.CorsSpec::disable);
         http.oauth2Login(withDefaults());
