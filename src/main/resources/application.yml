@@ -14,7 +14,9 @@ spring:
       routes:
         - id: ORDER-SERVICE
           # k8s 의 default 네임스페이스에서 동작하는 서비스 이름을 적는다.
-          # 내부 ip 주소가 아닌 서비스 이름으로 통신하기 위해 Cloud NAT 를 생성한다.
+          # 내부 ip 주소가 아닌 서비스 이름으로 통신하기 위해 Cloud NAT 를 이용한다.
+          # GKE 는 내부 통신을 위한 기능을 제공하지만
+          # 다른 플랫폼을 사용하면 에드온을 추가로 설치해야 한다.
           uri: http://order-service-svc
           # 조건자
           # 각 요청을 처리하기 전에 실행되는 로직, 헤더와 입력값 등
@@ -32,6 +34,8 @@ spring:
               args:
                 "[redis-rate-limiter.replenishRate]": 1
                 "[redis-rate-limiter.burstCapacity]": 1
+
+
         - id: PRODUCT-SERVICE
           uri: http://product-service-svc
           predicates:
@@ -45,6 +49,8 @@ spring:
               args:
                 "[redis-rate-limiter.replenishRate]": 1
                 "[redis-rate-limiter.burstCapacity]": 1
+
+
         - id: PAYMENT-SERVICE
           uri: http://payment-service-svc
           predicates:
