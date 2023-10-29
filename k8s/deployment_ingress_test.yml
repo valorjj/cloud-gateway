@@ -42,6 +42,7 @@ metadata:
 spec:
   domains:
     - jjcode.pe.kr
+    - www.jjcode.pe.kr
 
 ---
 ## Ingress HTTP to HTTPS redirect test 
@@ -51,17 +52,18 @@ kind: Ingress
 metadata:
   name: cloud-ingress
   annotations:
-    networking.gke.io/managed-certifiactes: "test-cert"
-    kubernetes.io/ingress.global-static-ip-name: "test-ip"
+    networking.gke.io/managed-certifiactes: test-cert
+    kubernetes.io/ingress.global-static-ip-name: test-ip
     # managed-certifiactes 을 사용하는 경우
     # 외부 어플리케이션 부하 분산기가 완전히 프로그래밍 다음에
     # 인그레스를 업데이트하고, 해당 주석을 사용할 수 있다.
     # kubernetes.io/ingress.allow-http: "false"
     kubernetes.io/ingress.class: "gce"
+    networking.gke.io/v1beta1.FrontendConfig: ingress-security-config
 spec:
   # HTTPS 통신 중 암호화를 담당하는 부분
   tls:
-    - secretName: ""
+    - secretName: "credentials"
   rules:
   - host: jjcode.pe.kr
     http:
@@ -79,8 +81,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: cloud-gateway-svc
-  annotations:
-    cloud.google.com/app-protocols: '{"": "HTTPS"}'
+  # annotations:
+  #   cloud.google.com/app-protocols: '{"": "HTTPS"}'
 spec:
   type: NodePort
   selector:
@@ -89,3 +91,14 @@ spec:
   - port: 433
     targetPort: 9090
     protocol: TCP
+
+---
+apiVersion: networking.gke.io/v1beta1
+kind: FrontendConfig
+metadata:
+  name: ingress-security-config
+spec:
+  sslPolicy: gke-ingress-ssl-policy
+  redirectToHttps:
+    enabled: true
+
