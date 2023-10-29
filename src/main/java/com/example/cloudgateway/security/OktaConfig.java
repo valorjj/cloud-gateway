@@ -16,8 +16,7 @@ public class OktaConfig {
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         http.authorizeExchange(auth -> auth
             .anyExchange().authenticated());
-//        http.csrf(ServerHttpSecurity.CsrfSpec::disable);
-//        http.cors(ServerHttpSecurity.CorsSpec::disable);
+
         http.oauth2Login(withDefaults());
         http.oauth2ResourceServer(auth -> auth.jwt(withDefaults()));
         return http.build();

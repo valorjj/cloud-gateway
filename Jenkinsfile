@@ -18,14 +18,16 @@ node {
         }
     }
 
+
+    // ingress 테스트 중
     stage('Deploy to GKE') {
-        sh("sed -i 's|IMAGE_URL|${repoURL}|g' k8s/deployment.yml")
+        sh("sed -i 's|IMAGE_URL|${repoURL}|g' k8s/deployment_ingress_test.yml")
 
         step([$class: 'KubernetesEngineBuilder',
             projectId: env.PROJECT_ID,
             clusterName: env.CLUSTER,
             location: env.ZONE,
-            manifestPattern: 'k8s/deployment.yml',
+            manifestPattern: 'k8s/deployment_ingress_test.yml',
             credentialsId: env.GOOGLE_SERVICE_ACCOUNT_CREDENTIAL,
             verifyDeployments: true])
     }
