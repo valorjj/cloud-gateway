@@ -52,11 +52,11 @@ metadata:
   name: cloud-ingress
   annotations:
     networking.gke.io/managed-certifiactes: "test-cert"
-    kubernetes.io/ingress.global-static-ip-name: cloud-gateway-static-ip
+    kubernetes.io/ingress.global-static-ip-name: "cloud-gateway-static-ip"
     # managed-certifiactes 을 사용하는 경우
     # 외부 어플리케이션 부하 분산기가 완전히 프로그래밍 다음에
     # 인그레스를 업데이트하고, 해당 주석을 사용할 수 있다.
-    # kubernetes.io/ingress.allow-http: "false"
+    kubernetes.io/ingress.allow-http: "false"
     kubernetes.io/ingress.class: "gce"
 spec:
   rules:
