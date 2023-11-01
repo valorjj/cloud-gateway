@@ -41,7 +41,12 @@ kind: Ingress
 metadata:
   name: cloud-gateway-ingress
   annotations:
+    # 구글 관리 인증서 파일을 등록한다면,
+    # 아래 어노테이션 없이 빌드가 완성된 후,
+    # 다시 빌드해야한다.
     kubernetes.io/ingress.allow-http: "false"
+    # gke 에 생성한 전역 고정 ip
+    kubernetes.io/ingress.global-static-ip-name: gateway-ip
 spec:
   # HTTPS 통신 중 암호화를 담당하는 부분
   tls:
@@ -55,6 +60,7 @@ spec:
         backend:
           service:
             name: cloud-gateway-svc
+            # 
             port: 
               number: 433
 
